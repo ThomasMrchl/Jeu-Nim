@@ -84,8 +84,38 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                         print(1)
                         if nbAllumettes>=2 :
                             nbAllumettes -=1
-                        player1.joue = False
-                        player2.joue = True
+                            player1.joue = False
+                            player2.joue = True
+                    if zone2rect.collidepoint(event.pos) and player1.joue == True:
+                        print(2)
+                        if nbAllumettes>=3 :
+                            nbAllumettes -=2
+                            player1.joue = False
+                            player2.joue = True
+                    if zone3rect.collidepoint(event.pos) and player1.joue == True:
+                        print(3)
+                        if nbAllumettes>=4 :
+                            nbAllumettes -=3
+                            player1.joue = False
+                            player2.joue = True
+                    if zone4rect.collidepoint(event.pos) and player2.joue == True:
+                        print(1)
+                        if nbAllumettes>=2 :
+                            nbAllumettes -=1
+                            player1.joue = True
+                            player2.joue = False
+                    if zone5rect.collidepoint(event.pos) and player2.joue == True:
+                        print(2)
+                        if nbAllumettes>=3 :
+                            nbAllumettes -=2
+                            player1.joue = True
+                            player2.joue = False
+                    if zone6rect.collidepoint(event.pos) and player2.joue == True:
+                        print(3)
+                        if nbAllumettes>=4 :
+                            nbAllumettes -=3
+                            player1.joue = True
+                            player2.joue = False
                     ###Question 2) compléter pour les 5 autres zones correspondant aux boutons de jeux
                     ###Pour rejouer, on teste si le joueur appuie sur oui ou non    
                     if ouirect.collidepoint(event.pos) :
@@ -120,7 +150,12 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
             augmente_score = True # permet de dire qu'il faut augmenter le score
         if nbAllumettes == 1 and player2.joue == True :
             ####à compléter question 3)###
-            pass
+            print('joueur1 gagne')
+            fin = True
+            player1.gagne = True
+            player1.joue = None
+            player2.joue = None
+            augmente_score = True
         #affichage du gagnant et du score
         if fin == True : #Si fin de partie
             if player1.gagne :
@@ -130,8 +165,11 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                     augmente_score = False #permet de n'augmenter le score qu'une seule fois
                     
             else :
-                ###à compléter question 4) pour gérer quand c'est player 2 qui gagne
-                pass
+                label = myfont.render("Le gagnant est joueur2", 1, (255,255,0))
+                if augmente_score == True :
+                    player2.score+=1
+                    augmente_score = False #permet de n'augmenter le score qu'une seule fois
+                
             #gérer la possibilité de rejouer       
             question = myfont.render("Voulez-vous rejouer ?",1,(0,0,0))
             score = myfont.render("joueur 1 a "+str(player1.score)+" points et le joueur 2 a "+str(player2.score)+"points",1,(0,0,0))
