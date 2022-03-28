@@ -9,7 +9,7 @@ pygame.init()
 # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
 myfont = pygame.font.SysFont("comicsansms", 30)
 # création d'une fenêtre de 800 par 600
-screen = pygame.display.set_mode((800,600))
+screen = pygame.display.set_mode((800,600), NOFRAME)
 pygame.display.set_caption("Jeu de Nim") 
 # chargement de l'image de fond
 fond = pygame.image.load('background.png')
