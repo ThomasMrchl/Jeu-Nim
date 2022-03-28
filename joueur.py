@@ -22,3 +22,7 @@ class Joueur:
     def set_etat(self, valeur):
         self.etat = valeur
 
+    def changer_pseudo(self, nouveau_pseudo):
+        self.pseudo = nouveau_pseudo
+
+
