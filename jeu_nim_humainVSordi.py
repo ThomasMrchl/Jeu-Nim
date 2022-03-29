@@ -189,8 +189,13 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
             player1.joue = None
             augmente_score = True
         if nbAllumettes == 1 and player2.joue == True :
-            #remettre ici votre Partie A :question 3)
-            pass
+            print('joueur1 gagne')
+            fin = True
+            player1.gagne = True
+            # render text
+            player2.joue = None
+            player1.joue = None
+            augmente_score = True
         if fin == True :
             if player1.gagne :
                 label = myfont.render("Le gagnant est joueur1", 1, (255,255,0))
@@ -199,8 +204,10 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                     augmente_score = False
                     
             else :
-                #remettre ici votre Partie A :question 4)
-                pass
+                label = myfont.render("Le gagnant est joueur2", 1, (255,255,0))
+                if augmente_score == True :
+                        player2.score+=1
+                        augmente_score = False
                    
             question = myfont.render("Voulez-vous rejouer ?",1,(0,0,0))
             score = myfont.render("joueur 1 a "+str(player1.score)+" points et le joueur 2 a "+str(player2.score)+"points",1,(0,0,0))
@@ -219,7 +226,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                 labelJ2 = myfont.render("joueur2 joue", 1, (255,0,0))
                 screen.blit(labelJ2, (320, 10))
             #affichage des allumettes :
-            for i in range( nbAllumettes) :
+            for i in range(nbAllumettes) :
                 screen.blit(allumette,(300,i*35+100))
 
             ### Gestion des événements  ###
@@ -289,25 +296,25 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                 augmente_score = True
                 #Partie C : question 1) Si le joueur humain gagne , l'ordi supprime son dernier coups pour ne plus le refaire
                 
-        if fin == True :
-            if player1.gagne :
-                label = myfont.render("Le gagnant est joueur1", 1, (255,255,0))
-                if augmente_score == True :
-                    player1.score+=1
-                    augmente_score = False
-                    
-            else :
-                label = myfont.render("Le gagnant est joueur2", 1, (255,255,0))
-                if augmente_score == True :
-                    player2.score+=1
-                    augmente_score = False
-                    
-            question = myfont.render("Voulez-vous rejouer ?",1,(0,0,0))
-            score = myfont.render("joueur 1 a "+str(player1.score)+" points et le joueur 2 a "+str(player2.score)+"points",1,(0,0,0))
-            screen.blit(label, (200, 10))
-            screen.blit(question,(10,400))
-            screen.blit(oui,(10,450))
-            screen.blit(non,(70,450))
-            screen.blit(score,(10,500))
+            if fin == True :
+                if player1.gagne :
+                    label = myfont.render("Le gagnant est joueur1", 1, (255,255,0))
+                    if augmente_score == True :
+                        player1.score+=1
+                        augmente_score = False
+                        
+                else :
+                    label = myfont.render("Le gagnant est joueur2", 1, (255,255,0))
+                    if augmente_score == True :
+                        player2.score+=1
+                        augmente_score = False
+                        
+                question = myfont.render("Voulez-vous rejouer ?",1,(0,0,0))
+                score = myfont.render("joueur 1 a "+str(player1.score)+" points et le joueur 2 a "+str(player2.score)+"points",1,(0,0,0))
+                screen.blit(label, (200, 10))
+                screen.blit(question,(10,400))
+                screen.blit(oui,(10,450))
+                screen.blit(non,(70,450))
+                screen.blit(score,(10,500))
     pygame.display.update() # pour ajouter tout changement à l'écran
 pygame.quit()
