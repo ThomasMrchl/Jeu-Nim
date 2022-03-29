@@ -76,7 +76,7 @@ augmente_score = False
 menu = True
 fondmenu = pygame.image.load("menu.png")
 humainVShumain = False
-humainVSordi = True
+humainVSordi = False
 while menu :
     screen.blit(fondmenu,(0,0))
     for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
@@ -123,12 +123,45 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                 if event.button == 1: # 1= clique gauche
                     if zone1rect.collidepoint(event.pos) and player1.joue == True:
                         print(1)
-                        if nbAllumettes>=2 :nbAllumettes -=1
-                        player1.joue = False
-                        player2.joue = True
-                    ###remettre ici votre Partie A : question 2)
+                        if nbAllumettes>=2 :
+                            nbAllumettes -=1
+                            player1.joue = False
+                            player2.joue = True
+                    if zone2rect.collidepoint(event.pos) and player1.joue == True:
+                        print(2)
+                        if nbAllumettes>=3 :
+                            nbAllumettes -=2
+                            player1.joue = False
+                            player2.joue = True
+                    if zone3rect.collidepoint(event.pos) and player1.joue == True:
+                        print(3)
+                        if nbAllumettes>=4 :
+                            nbAllumettes -=3
+                            player1.joue = False
+                            player2.joue = True
+                    if zone4rect.collidepoint(event.pos) and player2.joue == True:
+                        print(1)
+                        if nbAllumettes>=2 :
+                            nbAllumettes -=1
+                            player1.joue = True
+                            player2.joue = False
+                    if zone5rect.collidepoint(event.pos) and player2.joue == True:
+                        print(2)
+                        if nbAllumettes>=3 :
+                            nbAllumettes -=2
+                            player1.joue = True
+                            player2.joue = False
+                    if zone6rect.collidepoint(event.pos) and player2.joue == True:
+                        print(3)
+                        if nbAllumettes>=4 :
+                            nbAllumettes -=3
+                            player1.joue = True
+                            player2.joue = False
+                    ###Question 2) compléter pour les 5 autres zones correspondant aux boutons de jeux
+                    ###Pour rejouer, on teste si le joueur appuie sur oui ou non    
                     if ouirect.collidepoint(event.pos) :
                         fin = False
+                        #on choisit au hasard qui joue
                         n = random.randint(1,2)
                         if n == 1 :
                             player1.joue = True
@@ -139,6 +172,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                         player2.gagne = False
                     if nonrect.collidepoint(event.pos) :
                         running = False
+
         screen.blit(zone1,(10,10))
         screen.blit(zone2,(10,50))
         screen.blit(zone3,(10,90))
@@ -255,25 +289,25 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                 augmente_score = True
                 #Partie C : question 1) Si le joueur humain gagne , l'ordi supprime son dernier coups pour ne plus le refaire
                 
-            if fin == True :
-                if player1.gagne :
-                    label = myfont.render("Le gagnant est joueur1", 1, (255,255,0))
-                    if augmente_score == True :
-                        player1.score+=1
-                        augmente_score = False
-                        
-                else :
-                    label = myfont.render("Le gagnant est joueur2", 1, (255,255,0))
-                    if augmente_score == True :
-                        player2.score+=1
-                        augmente_score = False
-                       
-                question = myfont.render("Voulez-vous rejouer ?",1,(0,0,0))
-                score = myfont.render("joueur 1 a "+str(player1.score)+" points et le joueur 2 a "+str(player2.score)+"points",1,(0,0,0))
-                screen.blit(label, (200, 10))
-                screen.blit(question,(10,400))
-                screen.blit(oui,(10,450))
-                screen.blit(non,(70,450))
-                screen.blit(score,(10,500))
+        if fin == True :
+            if player1.gagne :
+                label = myfont.render("Le gagnant est joueur1", 1, (255,255,0))
+                if augmente_score == True :
+                    player1.score+=1
+                    augmente_score = False
+                    
+            else :
+                label = myfont.render("Le gagnant est joueur2", 1, (255,255,0))
+                if augmente_score == True :
+                    player2.score+=1
+                    augmente_score = False
+                    
+            question = myfont.render("Voulez-vous rejouer ?",1,(0,0,0))
+            score = myfont.render("joueur 1 a "+str(player1.score)+" points et le joueur 2 a "+str(player2.score)+"points",1,(0,0,0))
+            screen.blit(label, (200, 10))
+            screen.blit(question,(10,400))
+            screen.blit(oui,(10,450))
+            screen.blit(non,(70,450))
+            screen.blit(score,(10,500))
     pygame.display.update() # pour ajouter tout changement à l'écran
 pygame.quit()
