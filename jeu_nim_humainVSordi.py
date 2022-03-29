@@ -21,6 +21,18 @@ player2 = joueur.Joueur()
 # creation du graphe de jeu pour l'intelligence artificielle
 G = graphe_oriente.GraphOriente()
 ###à compléter Partie B : question 2)
+for i in range(1,13):
+    G.ajouter_sommet(i)
+    if i>3 :
+        G.ajouter_arc(i,i-1)
+        G.ajouter_arc(i,i-2)
+        G.ajouter_arc(i,i-3)
+G.ajouter_arc(3,2)
+G.ajouter_arc(3,1)
+G.ajouter_arc(2,1)
+
+#ajouter les arcs
+
 ##créer le graphe de tous les coups possibles sommets + arcs
 
 #boutons cliquables joueur 1
@@ -144,6 +156,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
             augmente_score = True
         if nbAllumettes == 1 and player2.joue == True :
             #remettre ici votre Partie A :question 3)
+            pass
         if fin == True :
             if player1.gagne :
                 label = myfont.render("Le gagnant est joueur1", 1, (255,255,0))
@@ -153,6 +166,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                     
             else :
                 #remettre ici votre Partie A :question 4)
+                pass
                    
             question = myfont.render("Voulez-vous rejouer ?",1,(0,0,0))
             score = myfont.render("joueur 1 a "+str(player1.score)+" points et le joueur 2 a "+str(player2.score)+"points",1,(0,0,0))
@@ -219,7 +233,10 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
             if player2.joue == True and nbAllumettes >1 :
                 #à compléter Partie B question 3) le player2 ordi doit choisir son coups grâce au graphe G des coups
                 #il doit choisir au hasard parmi la liste des arcs issus du sommet correspondant au nb d'allumettes
-                pass
+                liste_voisins = G.liste_sommets_issus(nbAllumettes)
+                nbAllumettes = random.choice(liste_voisins)
+                player2.joue=False
+                player1.joue = True
                 # à compléter partie C question 2) : gérer si la liste de coups issus du nbd'allumettes présente est vide (gobelet vide dans vidéo)
 
             if nbAllumettes == 1 and player1.joue == True :

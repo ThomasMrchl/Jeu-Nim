@@ -3,10 +3,10 @@ class GraphOriente:
         self.liste_sommets = []
         self.liste_arcs = []
 
-    def ajouter_sommets(self, A):
+    def ajouter_sommet(self, A):
         self.liste_sommets.append(A)
 
-    def ajouter_arcs(self,A,B):
+    def ajouter_arc(self,A,B):
         self.liste_arcs.append((A,B))
 
     def supprimer_arc(self,A,B):
