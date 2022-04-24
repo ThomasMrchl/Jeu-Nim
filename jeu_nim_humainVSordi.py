@@ -83,16 +83,16 @@ buttonia_rect = button_vs_ia.get_rect()
 buttonia_rect.x, buttonia_rect.y = 270, 350
 #
 buttonplayer_rect = button_vs_player.get_rect()
-buttonplayer_rect.x, buttonplayer_rect.y = 290, 250
+buttonplayer_rect.x, buttonplayer_rect.y = 270, 250
 #
 buttonrules_rect = button_rules.get_rect()
-buttonrules_rect.x, buttonrules_rect.y = 290, 150
+buttonrules_rect.x, buttonrules_rect.y = 270, 150
 humainVShumain = False
 humainVSordi = False
 while menu :
     screen.blit(fondmenu,(0,0))
-    screen.blit(button_rules,(290, 150))
-    screen.blit(button_vs_player,(290, 250))
+    screen.blit(button_rules,(270, 150))
+    screen.blit(button_vs_player,(270, 250))
     screen.blit(button_vs_ia,(270, 350))
     for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
         if event.type == pygame.QUIT : # si l'événement est le clic sur la fermeture de la fenêtre
