@@ -78,33 +78,26 @@ fondmenu = pygame.image.load("menu.png")
 button_vs_ia = pygame.image.load("button_vs-computer.png")
 button_vs_player = pygame.image.load("button_vs-player.png")
 button_rules = pygame.image.load("button_the-rules.png")
+#
 buttonia_rect = button_vs_ia.get_rect()
+buttonia_rect.x, buttonia_rect.y = 270, 350
+#
 buttonplayer_rect = button_vs_player.get_rect()
+buttonplayer_rect.x, buttonplayer_rect.y = 290, 250
+#
 buttonrules_rect = button_rules.get_rect()
+buttonrules_rect.x, buttonrules_rect.y = 290, 150
 humainVShumain = False
 humainVSordi = False
 while menu :
     screen.blit(fondmenu,(0,0))
-    screen.blit(button_rules,(100,200))
-    screen.blit(button_vs_player,(100,300))
-    screen.blit(button_vs_ia,(100,400))
+    screen.blit(button_rules,(290, 150))
+    screen.blit(button_vs_player,(290, 250))
+    screen.blit(button_vs_ia,(270, 350))
     for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
         if event.type == pygame.QUIT : # si l'événement est le clic sur la fermeture de la fenêtre
             menu = False # menu est sur False
             running = False
-              
-       # gestion de la souris
-        elif event.type == KEYDOWN: # quand j'appuie sur un bouton
-            if event.key == pygame.K_1 or event.key == pygame.K_KP1: #choix touche 1 (même avec clavier numérique)
-                humainVShumain = True
-                menu = False
-                player1.set_etat("humain")
-                player2.set_etat("humain")
-            if event.key == pygame.K_2 or event.key == pygame.K_KP2:
-                humainVSordi = True
-                menu = False
-                player1.set_etat("humain")
-                player2.set_etat("ordi")
         
         elif event.type == pygame.MOUSEBUTTONDOWN:
                 #verification pour savoir si la souris est sur le bouton jouer
@@ -113,6 +106,16 @@ while menu :
                     menu = False
                     player1.set_etat("humain")
                     player2.set_etat("humain")
+                    print("Lancement jeu vs joueur")
+                if buttonia_rect.collidepoint(event.pos):
+                    humainVSordi = True
+                    menu = False
+                    player1.set_etat("humain")
+                    player2.set_etat("ordi")
+                    print("Lancement jeu vs computer")
+                if buttonrules_rect.collidepoint(event.pos):
+                    print("Menu des Règles")
+                    
 
 
                         
