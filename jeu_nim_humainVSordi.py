@@ -37,19 +37,26 @@ G.ajouter_arc(2,1)
 #ajouter les arcs
 
 ##créer le graphe de tous les coups possibles sommets + arcs
-
+'''
+screen.blit(zone1,(120,550))
+screen.blit(zone2,(170,550))
+screen.blit(zone3,(220,550))
+screen.blit(zone1,(510,550))
+screen.blit(zone2,(560,550))
+screen.blit(zone3,(610,550))
+'''       
 #boutons cliquables joueur 1
 zone1 = pygame.image.load("b1.png") #image du bouton
-zone1rect = pygame.Rect(10,10,30,30) #rectangle autour de l'image (10,10) coordonnées et (30,30) largeur et hauteur
+zone1rect = pygame.Rect(120,550,30,30) #rectangle autour de l'image (10,10) coordonnées et (30,30) largeur et hauteur
 zone2 = pygame.image.load("b2.png")
-zone2rect=pygame.Rect(10,50,30,30)
+zone2rect=pygame.Rect(170,550,30,30)
 zone3 = pygame.image.load("b3.png")
-zone3rect = pygame.Rect(10,90,30,30)
+zone3rect = pygame.Rect(220,550,30,30)
 
 #boutons cliquables joueur2
-zone4rect = pygame.Rect(700,10,30,30)
-zone5rect = pygame.Rect(700,50,30,30)
-zone6rect = pygame.Rect(700,90,30,30)
+zone4rect = pygame.Rect(510,550,30,30)
+zone5rect = pygame.Rect(560,550,30,30)
+zone6rect = pygame.Rect(610,550,30,30)
 
 #reponse question rejouer :
 oui = pygame.image.load("oui.png")
@@ -141,10 +148,10 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
         screen.blit(fond,(0,0))
         screen.blit(button_close,(740,10))
         if player1.joue == True:
-            labelJ = myfont.render("joueur1 joue", 1, (0,0,255))
+            labelJ = myfont.render("joueur1 joue", 1, (255,255,255))
             screen.blit(labelJ, (320, 10))
         if player2.joue == True:
-            labelJ2 = myfont.render("joueur2 joue", 1, (0,0,255))
+            labelJ2 = myfont.render("joueur2 joue", 1, (255,255,255))
             screen.blit(labelJ2, (320, 10))
         #affichage des allumettes :
         for i in range( nbAllumettes) :
@@ -222,12 +229,12 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                     running = False
 
 
-        screen.blit(zone1,(10,10))
-        screen.blit(zone2,(10,50))
-        screen.blit(zone3,(10,90))
-        screen.blit(zone1,(700,10))
-        screen.blit(zone2,(700,50))
-        screen.blit(zone3,(700,90))
+        screen.blit(zone1,(120,550))
+        screen.blit(zone2,(170,550))
+        screen.blit(zone3,(220,550))
+        screen.blit(zone1,(510,550))
+        screen.blit(zone2,(560,550))
+        screen.blit(zone3,(610,550))
 
         if nbAllumettes == 1 and player1.joue == True :
             print('joueur2 gagne')
@@ -249,19 +256,19 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
             augmente_score = True
         if fin == True :
             if player1.gagne :
-                label = myfont.render("Le gagnant est joueur1", 1, (255,255,0))
+                label = myfont.render("Le gagnant est joueur1", 1, (255,255,255))
                 if augmente_score == True :
                     player1.score+=1
                     augmente_score = False
                     
             else :
-                label = myfont.render("Le gagnant est joueur2", 1, (255,255,0))
+                label = myfont.render("Le gagnant est joueur2", 1, (255,255,255))
                 if augmente_score == True :
                         player2.score+=1
                         augmente_score = False
                    
-            question = myfont.render("Voulez-vous rejouer ?",1,(0,0,0))
-            score = myfont.render("joueur 1 a "+str(player1.score)+" points et le joueur 2 a "+str(player2.score)+"points",1,(0,0,0))
+            question = myfont.render("Une nouvelle partie ?",1,(255,255,255))
+            score = myfont.render("joueur 1 a "+str(player1.score)+" points et le joueur 2 a "+str(player2.score)+"points",1,(255,255,255))
             screen.blit(label, (200, 10))
             screen.blit(question,(10,400))
             screen.blit(oui,(10,450))
@@ -326,9 +333,9 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                         menu = False # menu est sur False
                         running = False
             #on affiche que les trois boutons de l'humain
-            screen.blit(zone1,(10,10))
-            screen.blit(zone2,(10,50))
-            screen.blit(zone3,(10,90))
+            screen.blit(zone1,(120,550))
+            screen.blit(zone2,(170,550))
+            screen.blit(zone3,(220,550))
             #l'ordi choisi son coup :
             if player2.joue == True and nbAllumettes >1 :
                 #à compléter Partie B question 3) le player2 ordi doit choisir son coups grâce au graphe G des coups
@@ -359,19 +366,19 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                 
             if fin == True :
                 if player1.gagne :
-                    label = myfont.render("Le gagnant est joueur1", 1, (255,255,0))
+                    label = myfont.render("Le gagnant est joueur1", 1, (255,255,255))
                     if augmente_score == True :
                         player1.score+=1
                         augmente_score = False
                         
                 else :
-                    label = myfont.render("Le gagnant est joueur2", 1, (255,255,0))
+                    label = myfont.render("Le gagnant est joueur2", 1, (255,255,255))
                     if augmente_score == True :
                         player2.score+=1
                         augmente_score = False
                         
-                question = myfont.render("Voulez-vous rejouer ?",1,(0,0,0))
-                score = myfont.render("joueur 1 a "+str(player1.score)+" points et le joueur 2 a "+str(player2.score)+"points",1,(0,0,0))
+                question = myfont.render("Voulez-vous rejouer ?",1,(255,255,255))
+                score = myfont.render("joueur 1 a "+str(player1.score)+" points et le joueur 2 a "+str(player2.score)+"points",1,(255,255,255))
                 screen.blit(label, (200, 10))
                 screen.blit(question,(10,400))
                 screen.blit(oui,(10,450))
