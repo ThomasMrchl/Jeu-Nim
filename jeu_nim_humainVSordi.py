@@ -75,10 +75,19 @@ augmente_score = False
 ###Boucle MENU : au choix : 2 joueurs humains ou 1 humain contre ordi en IA apprenante
 menu = True
 fondmenu = pygame.image.load("menu.png")
+button_vs_ia = pygame.image.load("button_vs-computer.png")
+button_vs_player = pygame.image.load("button_vs-player.png")
+button_rules = pygame.image.load("button_the-rules.png")
+buttonia_rect = button_vs_ia.get_rect()
+buttonplayer_rect = button_vs_player.get_rect()
+buttonrules_rect = button_rules.get_rect()
 humainVShumain = False
 humainVSordi = False
 while menu :
     screen.blit(fondmenu,(0,0))
+    screen.blit(button_rules,(100,200))
+    screen.blit(button_vs_player,(100,300))
+    screen.blit(button_vs_ia,(100,400))
     for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
         if event.type == pygame.QUIT : # si l'événement est le clic sur la fermeture de la fenêtre
             menu = False # menu est sur False
@@ -96,6 +105,17 @@ while menu :
                 menu = False
                 player1.set_etat("humain")
                 player2.set_etat("ordi")
+        
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+                #verification pour savoir si la souris est sur le bouton jouer
+                if buttonplayer_rect.collidepoint(event.pos):
+                    humainVShumain = True
+                    menu = False
+                    player1.set_etat("humain")
+                    player2.set_etat("humain")
+
+
+                        
     pygame.display.update()
 ### BOUCLE DE JEU  ###
 while running : # boucle infinie pour laisser la fenêtre ouverte
