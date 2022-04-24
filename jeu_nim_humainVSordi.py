@@ -126,10 +126,10 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
         # dessin du fond
         screen.blit(fond,(0,0))
         if player1.joue == True:
-            labelJ = myfont.render("joueur1 joue", 1, (255,0,0))
+            labelJ = myfont.render("joueur1 joue", 1, (0,0,255))
             screen.blit(labelJ, (320, 10))
         if player2.joue == True:
-            labelJ2 = myfont.render("joueur2 joue", 1, (255,0,0))
+            labelJ2 = myfont.render("joueur2 joue", 1, (0,0,255))
             screen.blit(labelJ2, (320, 10))
         #affichage des allumettes :
         for i in range( nbAllumettes) :
@@ -243,10 +243,10 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
             # dessin du fond
             screen.blit(fond,(0,0))
             if player1.joue == True:
-                labelJ = myfont.render("joueur1 joue", 1, (255,0,0))
+                labelJ = myfont.render("joueur1 joue", 1, (0,0,255))
                 screen.blit(labelJ, (320, 10))
             if player2.joue == True:
-                labelJ2 = myfont.render("joueur2 joue", 1, (255,0,0))
+                labelJ2 = myfont.render("joueur2 joue", 1, (0,0,255))
                 screen.blit(labelJ2, (320, 10))
             #affichage des allumettes :
             for i in range(nbAllumettes) :
