@@ -9,7 +9,7 @@ pygame.init()
 # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
 myfont = pygame.font.SysFont("comicsansms", 30)
 # création d'une fenêtre de 800 par 600
-screen = pygame.display.set_mode((800,600))
+screen = pygame.display.set_mode((800,600), NOFRAME)
 pygame.display.set_caption("Jeu de Nim") 
 # chargement de l'image de fond
 fond = pygame.image.load('background.png')
@@ -30,6 +30,9 @@ for i in range(1,13):
 G.ajouter_arc(3,2)
 G.ajouter_arc(3,1)
 G.ajouter_arc(2,1)
+
+
+
 
 #ajouter les arcs
 
@@ -58,7 +61,7 @@ nonrect = pygame.Rect(70,450,50,50)
 
 #allumettes
 nbAllumettes = 12
-allumette = pygame.image.load('allumette.png')
+allumette = pygame.image.load('invader1.png')
 
 running = True # variable de la boucle de jeu
 #choix du joueur qui commence au hasard
@@ -74,10 +77,12 @@ augmente_score = False
 
 ###Boucle MENU : au choix : 2 joueurs humains ou 1 humain contre ordi en IA apprenante
 menu = True
+
 fondmenu = pygame.image.load("menu.png")
 button_vs_ia = pygame.image.load("button_vs-computer.png")
 button_vs_player = pygame.image.load("button_vs-player.png")
 button_rules = pygame.image.load("button_the-rules.png")
+button_close = pygame.image.load("button_close.png")
 #
 buttonia_rect = button_vs_ia.get_rect()
 buttonia_rect.x, buttonia_rect.y = 270, 350
@@ -87,13 +92,21 @@ buttonplayer_rect.x, buttonplayer_rect.y = 270, 250
 #
 buttonrules_rect = button_rules.get_rect()
 buttonrules_rect.x, buttonrules_rect.y = 270, 150
+#
+buttonclose_rect = button_close.get_rect()
+buttonclose_rect.x, buttonclose_rect.y = 740,10
+#
 humainVShumain = False
 humainVSordi = False
+
+vitesse=50
+
 while menu :
     screen.blit(fondmenu,(0,0))
     screen.blit(button_rules,(270, 150))
     screen.blit(button_vs_player,(270, 250))
     screen.blit(button_vs_ia,(270, 350))
+    screen.blit(button_close,(740,10))
     for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
         if event.type == pygame.QUIT : # si l'événement est le clic sur la fermeture de la fenêtre
             menu = False # menu est sur False
@@ -115,8 +128,9 @@ while menu :
                     print("Lancement jeu vs computer")
                 if buttonrules_rect.collidepoint(event.pos):
                     print("Menu des Règles")
-                    
-
+                if buttonclose_rect.collidepoint(event.pos):
+                    menu = False # menu est sur False
+                    running = False
 
                         
     pygame.display.update()
@@ -125,6 +139,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
     if humainVShumain : 
         # dessin du fond
         screen.blit(fond,(0,0))
+        screen.blit(button_close,(740,10))
         if player1.joue == True:
             labelJ = myfont.render("joueur1 joue", 1, (0,0,255))
             screen.blit(labelJ, (320, 10))
@@ -133,7 +148,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
             screen.blit(labelJ2, (320, 10))
         #affichage des allumettes :
         for i in range( nbAllumettes) :
-            screen.blit(allumette,(300,i*35+100))
+            screen.blit(allumette,(vitesse,i*35+100))
 
         ### Gestion des événements  ###
         for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
@@ -147,24 +162,28 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                     if zone1rect.collidepoint(event.pos) and player1.joue == True:
                         print(1)
                         if nbAllumettes>=2 :
+                            vitesse+=100
                             nbAllumettes -=1
                             player1.joue = False
                             player2.joue = True
                     if zone2rect.collidepoint(event.pos) and player1.joue == True:
                         print(2)
                         if nbAllumettes>=3 :
+                            vitesse+=100
                             nbAllumettes -=2
                             player1.joue = False
                             player2.joue = True
                     if zone3rect.collidepoint(event.pos) and player1.joue == True:
                         print(3)
                         if nbAllumettes>=4 :
+                            vitesse+=100
                             nbAllumettes -=3
                             player1.joue = False
                             player2.joue = True
                     if zone4rect.collidepoint(event.pos) and player2.joue == True:
                         print(1)
                         if nbAllumettes>=2 :
+                            vitesse+=100
                             nbAllumettes -=1
                             player1.joue = True
                             player2.joue = False
@@ -172,12 +191,14 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                         print(2)
                         if nbAllumettes>=3 :
                             nbAllumettes -=2
+                            vitesse+=100
                             player1.joue = True
                             player2.joue = False
                     if zone6rect.collidepoint(event.pos) and player2.joue == True:
                         print(3)
                         if nbAllumettes>=4 :
                             nbAllumettes -=3
+                            vitesse+=100
                             player1.joue = True
                             player2.joue = False
                     ###Question 2) compléter pour les 5 autres zones correspondant aux boutons de jeux
@@ -195,6 +216,11 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                         player2.gagne = False
                     if nonrect.collidepoint(event.pos) :
                         running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if buttonclose_rect.collidepoint(event.pos):
+                    menu = False # menu est sur False
+                    running = False
+
 
         screen.blit(zone1,(10,10))
         screen.blit(zone2,(10,50))
@@ -207,6 +233,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
             print('joueur2 gagne')
             fin = True
             player2.gagne = True
+            vitesse = 50
             # render text
             player2.joue = None
             player1.joue = None
@@ -215,6 +242,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
             print('joueur1 gagne')
             fin = True
             player1.gagne = True
+            vitesse = 50
             # render text
             player2.joue = None
             player1.joue = None
@@ -242,6 +270,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
     if humainVSordi :
             # dessin du fond
             screen.blit(fond,(0,0))
+            screen.blit(button_close,(740,10))
             if player1.joue == True:
                 labelJ = myfont.render("joueur1 joue", 1, (0,0,255))
                 screen.blit(labelJ, (320, 10))
@@ -250,7 +279,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                 screen.blit(labelJ2, (320, 10))
             #affichage des allumettes :
             for i in range(nbAllumettes) :
-                screen.blit(allumette,(300,i*35+100))
+                screen.blit(allumette,(vitesse,i*35+100))
 
             ### Gestion des événements  ###
             for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
@@ -266,16 +295,19 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                             if nbAllumettes>=2 :nbAllumettes -=1
                             player1.joue = False
                             player2.joue = True
+                            vitesse+=200
                         if zone2rect.collidepoint(event.pos) and player1.joue == True :
                             print(2)
                             if nbAllumettes>=3 :nbAllumettes -=2
                             player1.joue = False
                             player2.joue = True
+                            vitesse+=200
                         if zone3rect.collidepoint(event.pos) and player1.joue == True :
                             print(3)
                             if nbAllumettes>=4 :nbAllumettes -=3
                             player1.joue = False
                             player2.joue = True
+                            vitesse+=200
                         #il n'y a plus que les trois boutons du joueur humain
                         if ouirect.collidepoint(event.pos) :
                             fin = False
@@ -289,6 +321,10 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                             player2.gagne = False
                         if nonrect.collidepoint(event.pos) :
                             running = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if buttonclose_rect.collidepoint(event.pos):
+                        menu = False # menu est sur False
+                        running = False
             #on affiche que les trois boutons de l'humain
             screen.blit(zone1,(10,10))
             screen.blit(zone2,(10,50))
@@ -306,6 +342,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
             if nbAllumettes == 1 and player1.joue == True :
                 print('joueur2 gagne')
                 fin = True
+                vitesse=50
                 player2.gagne = True
                 player2.joue = None
                 player1.joue = None
@@ -313,6 +350,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
             if nbAllumettes == 1 and player2.joue == True :
                 print('joueur1 gagne')
                 fin = True
+                vitesse=50
                 player1.gagne = True
                 player2.joue = None
                 player1.joue = None

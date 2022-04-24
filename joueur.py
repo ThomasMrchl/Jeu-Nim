@@ -25,4 +25,3 @@ class Joueur:
     def changer_pseudo(self, nouveau_pseudo):
         self.pseudo = nouveau_pseudo
 
-
