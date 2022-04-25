@@ -330,7 +330,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
                             running = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if buttonclose_rect.collidepoint(event.pos):
-                        menu = False # menu est sur False
+                        menu = True # menu est sur False
                         running = False
             #on affiche que les trois boutons de l'humain
             screen.blit(zone1,(120,550))
